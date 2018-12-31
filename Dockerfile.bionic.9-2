@@ -5,6 +5,7 @@ ARG FROM_IMG_TAG=bionic.9-2
 ARG FROM_IMG_HASH=""
 
 FROM ${DOCKER_REGISTRY}/${FROM_IMG_REPO}/${FROM_IMG_NAME}:${FROM_IMG_TAG}${DOCKER_IMG_HASH}
+LABEL org.qnib.image.node.features=cuda9.2
 
 ENV DEBIAN_FRONTEND=noninteractive \
     DEBCONF_NONINTERACTIVE_SEEN=true
@@ -22,6 +23,11 @@ RUN git clone https://git.ffmpeg.org/ffmpeg.git ffmpeg
 RUN cd ffmpeg \
  && ./configure --enable-cuda --enable-cuvid --enable-nvenc --enable-nonfree --enable-libnpp \
                 --extra-cflags=-I/usr/local/cuda/include --extra-ldflags=-L/usr/local/cuda/lib64 \
+                --disable-doc \
+                --disable-htmlpages \
+                --disable-manpages \
+                --disable-podpages \
+                --disable-txtpages \
  && make -j10 \
  && make install \
  && cd .. \
