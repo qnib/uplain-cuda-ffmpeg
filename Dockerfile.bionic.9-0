@@ -9,7 +9,7 @@ FROM ${DOCKER_REGISTRY}/${FROM_IMG_REPO}/${FROM_IMG_NAME}:${FROM_IMG_TAG}${DOCKE
 ENV DEBIAN_FRONTEND=noninteractive \
     DEBCONF_NONINTERACTIVE_SEEN=true
 RUN apt-get update \
- && apt-get install --no-install-recommends -y git yasm \
+ && apt-get install --no-install-recommends -y git yasm unzip \
  && rm -rf /var/lib/apt/lists/*
 WORKDIR /usr/local/src
 RUN git clone https://git.videolan.org/git/ffmpeg/nv-codec-headers.git \
